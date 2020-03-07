@@ -6,51 +6,33 @@ using namespace std;
 class Person
 {
 public:
+	//Init
 	string name;
 	int age;
-	Person() 
-	{
-		name = "EmptyName";
-		age = 0;
-	};
 
-	Person(string name, int age)
-	{
-		this->name = name;
-		this->age = age;
-	};
+	//Default Contructor
+	Person();
 
-	Person& operator=(const Person p)
-	{
-		name = p.name;
-		age = p.age;
-		return *this;
-	}
+	//Contructor
+	Person(string name, int age);
+	
+	//Operator =
+	Person& operator=(const Person p);
+	
+	//Operator >
+	bool operator>(const Person p);
+	
+	//Operator <
+	bool operator<(const Person p);
+	
+	//Operator ==
+	bool operator==(const Person p);
+	
+	//cout overload
+	friend ostream& operator<<(ostream& os, const Person p);
 
-	bool operator>(const Person p)
-	{
-		return (age > p.age) ? true : false;
-	}
-
-	bool operator<(const Person p)
-	{
-		return (age < p.age) ? true : false;
-	}
-
-	bool operator==(const Person p)
-	{
-		return (age == p.age) ? true : false;
-	}
-
-	friend ostream& operator<<(ostream& os, const Person p)
-	{
-		return os << p.name << " " << p.age;
-	}
-
-	friend istream& operator>>(istream& is, Person& p)
-	{
-		return is >> p.name >> p.age;
-	}
-
+	//cin overload
+	friend istream& operator>>(istream& is, Person& p);
+	
 };
 
