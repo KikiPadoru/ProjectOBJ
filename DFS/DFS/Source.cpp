@@ -1,42 +1,46 @@
-#include <fstream>
 #include <iostream>
 #include <vector>
-#include <queue>
 using namespace std;
+
+
+void dfs(vector<vector<int>> &Graph, vector<int> &Num, vector<pair<int, int>> &T, vector<bool> &R, int v, int n)
+{
+	R[v] = true;
+	Num[v] = n;
+	n++;
+	for (int w = 0; w < Graph[v].size(); w++)
+	{
+		if (!R[Graph[v][w]])
+		{
+			T.push_back(make_pair(v, Graph[v][w]));
+			dfs(Graph, Num, T, R, Graph[v][w], n);
+		}
+	}
+}
 
 int main()
 {
-	//Input
-	ifstream in("in.txt");
+	int count, edges;
+	cin >> count >> edges;
 
-	int n, req;
-	in >> n >> req;
+	vector<vector<int>> Graph(count);
 
-	vector<vector<int>> graph(n);
-
-	for (int i = 0; i < req; i++)
+	for (int i = 0; i < edges; i++)
 	{
-		int u, v;
-		in >> u >> v;
-		graph[u - 1].push_back(v - 1);
-		//graph[v - 1].push_back(u - 1);
+		int v, w;
+		cin >> v >> w;
+		Graph[v - 1].push_back(w - 1);
+		Graph[w - 1].push_back(v - 1);
 	}
 
-	in.close();
+	vector<int> Num(count);
+	vector<pair<int, int>> T;
+	vector<bool> R(count);
+	int n = 1;
 
-	//Body
+	dfs(Graph, Num, T, R, 0, n);
 
-
-	//Output
-	ofstream out("out.txt");
-
-	for (int i = 0; i < graph.size(); i++)
-	{
-		for (int j = 0; j < graph[i].size(); j++)
-			out << graph[i][j] + 1 << " ";
-		out << endl;
-	}
-
-	out.close();
+	for (int i = 0; i < T.size(); i++)
+		cout << T[i].first + 1 << " " << T[i].second + 1<< endl;
 
 }
