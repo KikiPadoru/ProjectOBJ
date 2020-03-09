@@ -10,7 +10,7 @@ bool checkR(vector<pair<int, int>>RE, int v, int w)
 	return 1;
 }
 
-void dfs(vector<vector<int>>& Graph, vector<int>& Num, vector<int>& Up, vector<pair<int, int>>& T, vector<pair<int, int>>& RE, vector<bool>& R, int v, int n, int prev)
+void dfs(vector<vector<int>>& Graph, vector<int>& Num, vector<int>& Up, vector<pair<int, int>>& T, vector<pair<int, int>>& RE, vector<pair<int, int>> &Bridge, vector<bool>& R, int v, int &n, int prev)
 {
 	R[v] = true;
 	Num[v] = n;
@@ -22,7 +22,7 @@ void dfs(vector<vector<int>>& Graph, vector<int>& Num, vector<int>& Up, vector<p
 		if (!R[Graph[v][w]])
 		{
 			T.push_back(make_pair(v, Graph[v][w]));
-			dfs(Graph, Num, Up, T, RE, R, Graph[v][w], n, v);
+			dfs(Graph, Num, Up, T, RE, Bridge, R, Graph[v][w], n, v);
 			if (Up[v] < Up[Graph[v][w]])
 				Up[v] = Up[v];
 			else
@@ -37,7 +37,7 @@ void dfs(vector<vector<int>>& Graph, vector<int>& Num, vector<int>& Up, vector<p
 		}
 
 		if (Up[Graph[v][w]] > Num[v])
-			cout << "Bridge: " <<  v + 1 << " " << Graph[v][w] + 1 << endl;
+			Bridge.push_back(make_pair(v, Graph[v][w]));
 
 	}
 }
@@ -60,17 +60,36 @@ int main()
 	vector<int> Num(count);
 	vector<int> Up(count);
 	vector<pair<int, int>> T;
+	vector<pair<int, int>> Bridge;
 	vector<pair<int, int>> RE;
 	vector<bool> R(count);
+	int n = 1;
 
-	cout << endl;
-	dfs(Graph, Num, Up, T, RE, R, 0, 1, -1);
+	dfs(Graph, Num, Up, T, RE, Bridge, R, 0, n, -1);
 
-	cout << "\nSpanning TRee: " << endl;
+	cout << "\nSpanning Tree: " << endl;
 	for (int i = 0; i < T.size(); i++)
-		cout << T[i].first + 1 << " " << T[i].second + 1 << endl;
+		cout << T[i].first +1 << " " << T[i].second +1 << endl;
 
+	if (Bridge.size())
+	{
+		cout << "\nBridges: " << endl;
+		for (int i = 0; i < Bridge.size(); i++)
+			cout << Bridge[i].first + 1 << " " << Bridge[i].second + 1 << endl;
+	}
+	else
+		cout << "\nBridge Not Found" << endl;
+
+/*
 	cout << "\nReverse Edges: " << endl;
 	for (int i = 0; i < RE.size(); i++)
-		cout << RE[i].first + 1 << " " << RE[i].second + 1 << endl;
+		cout << RE[i].first +1 << " " << RE[i].second +1 << endl;
+
+	cout << "\nNum: " << endl;
+	for (int i = 0; i < Num.size(); i++)
+		cout << Num[i] << " ";
+	cout << "\n\nUp: " << endl;
+	for (int i = 0; i < Up.size(); i++)
+		cout << Up[i] << " ";
+*/
 }
