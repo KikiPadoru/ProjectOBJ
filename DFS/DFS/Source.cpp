@@ -15,29 +15,29 @@ int min(int a, int b)
 	return (a < b) ? a : b;
 }
 
-void dfs(vector<vector<int>>& Graph, vector<int>& Num, vector<int>& Up, vector<pair<int, int>>& T, vector<pair<int, int>>& RE, vector<pair<int, int>> &Bridge, vector<bool>& R, int v, int &n, int prev)
+void dfs(vector<vector<int>>& Graph, vector<int>& Num, vector<int>& Up, vector<pair<int, int>>& T, vector<pair<int, int>>& RE, vector<pair<int, int>> &Bridge, vector<bool>& R, int &n, int v, int prev)
 {
 	R[v] = true;
 	Num[v] = n;
 	Up[v] = Num[v];
 	n++;
 
-	for (int w = 0; w < Graph[v].size(); w++)
+	for (int w : Graph[v])
 	{
-		if (!R[Graph[v][w]])
+		if (!R[w])
 		{
-			T.push_back(make_pair(v, Graph[v][w]));
-			dfs(Graph, Num, Up, T, RE, Bridge, R, Graph[v][w], n, v);
-			Up[v] = min(Up[v], Up[Graph[v][w]]);
+			T.push_back(make_pair(v, w));
+			dfs(Graph, Num, Up, T, RE, Bridge, R, n, w, v);
+			Up[v] = min(Up[v], Up[w]);
 
 		}
-		else if (R[Graph[v][w]] && prev != Graph[v][w] && checkR(RE, v, Graph[v][w])) {
-			RE.push_back(make_pair(v, Graph[v][w]));
-			Up[v] = min(Up[v], Num[Graph[v][w]]);
+		else if (R[w] && prev != w && checkR(RE, v, w)) {
+			RE.push_back(make_pair(v, w));
+			Up[v] = min(Up[v], Num[w]);
 		}
 
-		if (Up[Graph[v][w]] > Num[v])
-			Bridge.push_back(make_pair(v, Graph[v][w]));
+		if (Up[w] > Num[v])
+			Bridge.push_back(make_pair(v, w));
 
 	}
 }
@@ -65,31 +65,31 @@ int main()
 	vector<bool> R(count);
 	int n = 1;
 
-	dfs(Graph, Num, Up, T, RE, Bridge, R, 0, n, -1);
+	dfs(Graph, Num, Up, T, RE, Bridge, R, n, 0, -1);
 
 	cout << "\nSpanning Tree: " << endl;
-	for (int i = 0; i < T.size(); i++)
-		cout << T[i].first +1 << " " << T[i].second +1 << endl;
+	for (pair<int, int> i : T)
+		cout << i.first +1 << " " << i.second +1 << endl;
 
 	if (Bridge.size())
 	{
 		cout << "\nBridges: " << endl;
-		for (int i = 0; i < Bridge.size(); i++)
-			cout << Bridge[i].first + 1 << " " << Bridge[i].second + 1 << endl;
+		for (pair<int, int> i : Bridge)
+			cout << i.first + 1 << " " << i.second + 1 << endl;
 	}
 	else
 		cout << "\nBridge Not Found" << endl;
 
-/*
 	cout << "\nReverse Edges: " << endl;
-	for (int i = 0; i < RE.size(); i++)
-		cout << RE[i].first +1 << " " << RE[i].second +1 << endl;
+	for (pair<int, int> i : RE)
+		cout << i.first +1 << " " << i.second +1 << endl;
 
 	cout << "\nNum: " << endl;
-	for (int i = 0; i < Num.size(); i++)
-		cout << Num[i] << " ";
+	for (int i : Num)
+		cout << i << " ";
+
 	cout << "\n\nUp: " << endl;
-	for (int i = 0; i < Up.size(); i++)
-		cout << Up[i] << " ";
-*/
+	for (int i : Up)
+		cout << i << " ";
+
 }
