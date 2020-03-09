@@ -29,7 +29,6 @@ void dfs(vector<vector<int>>& Graph, vector<int>& Num, vector<int>& Up, vector<p
 			T.push_back(make_pair(v, w));
 			dfs(Graph, Num, Up, T, RE, Bridge, R, n, w, v);
 			Up[v] = min(Up[v], Up[w]);
-
 		}
 		else if (R[w] && prev != w && checkR(RE, v, w)) {
 			RE.push_back(make_pair(v, w));
@@ -38,7 +37,6 @@ void dfs(vector<vector<int>>& Graph, vector<int>& Num, vector<int>& Up, vector<p
 
 		if (Up[w] > Num[v])
 			Bridge.push_back(make_pair(v, w));
-
 	}
 }
 
@@ -80,6 +78,7 @@ int main()
 	else
 		cout << "\nBridge Not Found" << endl;
 
+/*
 	cout << "\nReverse Edges: " << endl;
 	for (pair<int, int> i : RE)
 		cout << i.first +1 << " " << i.second +1 << endl;
@@ -91,5 +90,5 @@ int main()
 	cout << "\n\nUp: " << endl;
 	for (int i : Up)
 		cout << i << " ";
-
+*/
 }
