@@ -10,6 +10,11 @@ bool checkR(vector<pair<int, int>>RE, int v, int w)
 	return 1;
 }
 
+int min(int a, int b)
+{
+	return (a < b) ? a : b;
+}
+
 void dfs(vector<vector<int>>& Graph, vector<int>& Num, vector<int>& Up, vector<pair<int, int>>& T, vector<pair<int, int>>& RE, vector<pair<int, int>> &Bridge, vector<bool>& R, int v, int &n, int prev)
 {
 	R[v] = true;
@@ -23,17 +28,12 @@ void dfs(vector<vector<int>>& Graph, vector<int>& Num, vector<int>& Up, vector<p
 		{
 			T.push_back(make_pair(v, Graph[v][w]));
 			dfs(Graph, Num, Up, T, RE, Bridge, R, Graph[v][w], n, v);
-			if (Up[v] < Up[Graph[v][w]])
-				Up[v] = Up[v];
-			else
-				Up[v] = Up[Graph[v][w]];
+			Up[v] = min(Up[v], Up[Graph[v][w]]);
+
 		}
 		else if (R[Graph[v][w]] && prev != Graph[v][w] && checkR(RE, v, Graph[v][w])) {
 			RE.push_back(make_pair(v, Graph[v][w]));
-			if (Up[v] < Num[Graph[v][w]])
-				Up[v] = Up[v];
-			else
-				Up[v] = Num[Graph[v][w]];
+			Up[v] = min(Up[v], Num[Graph[v][w]]);
 		}
 
 		if (Up[Graph[v][w]] > Num[v])
