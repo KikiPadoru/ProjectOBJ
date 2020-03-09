@@ -16,6 +16,7 @@ void dfs(vector<vector<int>>& Graph, vector<int>& Num, vector<int>& Up, vector<p
 	Num[v] = n;
 	Up[v] = Num[v];
 	n++;
+
 	for (int w = 0; w < Graph[v].size(); w++)
 	{
 		if (!R[Graph[v][w]])
@@ -36,7 +37,7 @@ void dfs(vector<vector<int>>& Graph, vector<int>& Num, vector<int>& Up, vector<p
 		}
 
 		if (Up[Graph[v][w]] > Num[v])
-			cout << "BRIDGE: " <<  v + 1 << " " << Graph[v][w] + 1 << endl;
+			cout << "Bridge: " <<  v + 1 << " " << Graph[v][w] + 1 << endl;
 
 	}
 }
@@ -61,6 +62,7 @@ int main()
 	vector<pair<int, int>> T;
 	vector<pair<int, int>> RE;
 	vector<bool> R(count);
+
 	cout << endl;
 	dfs(Graph, Num, Up, T, RE, R, 0, 1, -1);
 
