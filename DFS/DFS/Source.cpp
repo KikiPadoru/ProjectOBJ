@@ -78,7 +78,6 @@ int main()
 	else
 		cout << "\nBridge Not Found" << endl;
 
-/*
 	cout << "\nReverse Edges: " << endl;
 	for (pair<int, int> i : RE)
 		cout << i.first +1 << " " << i.second +1 << endl;
@@ -90,5 +89,4 @@ int main()
 	cout << "\n\nUp: " << endl;
 	for (int i : Up)
 		cout << i << " ";
-*/
 }
