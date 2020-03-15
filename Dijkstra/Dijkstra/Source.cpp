@@ -39,13 +39,17 @@ int main()
 		D[Graph[a - 1][i].first] = Graph[a - 1][i].second;
 	}
 
-	queue<int> Q;
-	for (int i = 0; i < R.size(); i++)
-		if (!R[i])
-			Q.push(i);
+	for (int i = 0; i < D.size(); i++)
+		if (D[i] == 0) {
+			D[i] = 99999;
+			R[i] = true;
+		}
+
+
+	D[a - 1] = 0;
 
 	while (checkR(R)) {
-		int min = 100, min_v = -1;
+		int min = 99999, min_v = -1;
 		for (int i = 0; i < D.size(); i++)
 			if (D[i] < min && !R[i])
 			{
@@ -62,13 +66,16 @@ int main()
 		}
 	}
 
-	for (int i = 0; i < Graph.size(); i++)
-		for (int j = 0; j < Graph[i].size(); j++)
-			cout << "Road: " << i + 1 << " --> " << Graph[i][j].first + 1 << " Weight: " << Graph[i][j].second << endl;
+	cout << "F: ";
 
 	for (int i = 0; i < F.size(); i++)
-		cout << "F " << i + 1<< " " << F[i] + 1<< endl;
+		cout << F[i] + 1<< " ";
 
+	cout << endl << "D: ";
+	 
 	for (int i = 0; i < D.size(); i++)
-		cout << "D " << D[i] << endl;
+		if (D[i] == 99999)
+			cout << "inf ";
+		else
+		cout << D[i] << " ";
 }
