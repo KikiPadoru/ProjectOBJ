@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <queue>
+
 using namespace std;
 
 bool checkR(vector<bool> R)
@@ -17,12 +17,19 @@ int main()
 	int count, edge, a;
 	cin >> count >> edge;
 
-	vector<vector<pair<int, int>>> Graph(count);
+	vector<vector<pair<int, int>>> Graph(count, vector<pair<int, int>> (count));
+
+	for (int i = 0; i < Graph.size(); i++) {
+		for (int j = 0; j < Graph[i].size(); j++)
+			cout << " " << Graph[i][j].first << " ";
+		cout << endl;
+	}
 
 	for (int i = 0; i < edge; i++) {
 		int u, v, c;
 		cin >> u >> v >> c;
-		Graph[u - 1].push_back(make_pair(v - 1, c));
+		Graph[u - 1][v - 1].first = v - 1;
+		Graph[u - 1][v - 1].second = c;
 	}
 
 	vector<bool> R(count);
@@ -31,20 +38,21 @@ int main()
 
 	cin >> a;
 
-	R[a - 1] =  true;
+	for (int i = 0; i < Graph.size(); i++)
+		for (int j = 0; j < Graph[i].size(); j++)
+			if (Graph[i][j].second == 0) {
+				Graph[i][j].second = 99999;
+				R[Graph[i][j].first] = true;
+			}
+
+	R[a - 1] = true;
+	
 
 	for (int i = 0; i < Graph[a - 1].size(); i++)
 	{
-		F[Graph[a-1][i].first] = a - 1;
-		D[Graph[a - 1][i].first] = Graph[a - 1][i].second;
+		F[i] = a - 1;
+		D[i] = Graph[a - 1][i].second;
 	}
-
-	for (int i = 0; i < D.size(); i++)
-		if (D[i] == 0) {
-			D[i] = 99999;
-			R[i] = true;
-		}
-
 
 	D[a - 1] = 0;
 
@@ -56,12 +64,14 @@ int main()
 				min = D[i];
 				min_v = i;
 			}
+		if (min_v == -1)
+			break;
 		R[min_v] = true;
 		for (int i = 0; i < Graph[min_v].size(); i++)
 		{
-			if (D[min_v] + Graph[min_v][i].second < D[Graph[min_v][i].first]) {
-				F[Graph[min_v][i].first] = min_v;
-				D[Graph[min_v][i].first] = D[min_v] + Graph[min_v][i].second;
+			if (D[min_v] + Graph[min_v][i].second < D[i]) {
+				F[i] = min_v;
+				D[i] = D[min_v] + Graph[min_v][i].second;
 			}
 		}
 	}
