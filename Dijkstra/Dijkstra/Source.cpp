@@ -17,41 +17,29 @@ int main()
 	int count, edge, a;
 	cin >> count >> edge;
 
-	vector<vector<pair<int, int>>> Graph(count, vector<pair<int, int>> (count));
 
-	for (int i = 0; i < Graph.size(); i++) {
-		for (int j = 0; j < Graph[i].size(); j++)
-			cout << " " << Graph[i][j].first << " ";
-		cout << endl;
-	}
+	vector<vector<int>> Graph(count, vector<int> (count, 99999));
 
 	for (int i = 0; i < edge; i++) {
 		int u, v, c;
 		cin >> u >> v >> c;
-		Graph[u - 1][v - 1].first = v - 1;
-		Graph[u - 1][v - 1].second = c;
+		Graph[u - 1][v - 1] = c;
 	}
 
 	vector<bool> R(count);
+
 	vector<int> D(count);
+
 	vector<int> F(count);
-
+	
 	cin >> a;
-
-	for (int i = 0; i < Graph.size(); i++)
-		for (int j = 0; j < Graph[i].size(); j++)
-			if (Graph[i][j].second == 0) {
-				Graph[i][j].second = 99999;
-				R[Graph[i][j].first] = true;
-			}
 
 	R[a - 1] = true;
 	
-
 	for (int i = 0; i < Graph[a - 1].size(); i++)
 	{
 		F[i] = a - 1;
-		D[i] = Graph[a - 1][i].second;
+		D[i] = Graph[a - 1][i];
 	}
 
 	D[a - 1] = 0;
@@ -66,12 +54,13 @@ int main()
 			}
 		if (min_v == -1)
 			break;
+
 		R[min_v] = true;
 		for (int i = 0; i < Graph[min_v].size(); i++)
 		{
-			if (D[min_v] + Graph[min_v][i].second < D[i]) {
+			if (D[min_v] + Graph[min_v][i] < D[i]) {
 				F[i] = min_v;
-				D[i] = D[min_v] + Graph[min_v][i].second;
+				D[i] = D[min_v] + Graph[min_v][i];
 			}
 		}
 	}
