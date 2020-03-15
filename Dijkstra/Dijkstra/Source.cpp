@@ -31,7 +31,7 @@ int main()
 
 	cin >> a;
 
-	R[a - 1] = true;
+	R[a - 1] =  true;
 
 	for (int i = 0; i < Graph[a - 1].size(); i++)
 	{
