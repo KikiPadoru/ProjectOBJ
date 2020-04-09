@@ -1,5 +1,4 @@
 #pragma once
-
 #include <fstream>
 #include <string>
 
@@ -32,9 +31,11 @@ public:
 	bool operator<(const Price a);
 	bool operator==(const Price a);
 
-	//IO
+	//I/O
 	friend istream& operator>>(istream& is, Price& a);
 	friend ostream& operator<<(ostream& os, const Price a);
+
+	//binary I/O
 	void writeBin(fstream& file);
 	void readBin(fstream& file);
 
