@@ -1,22 +1,8 @@
 #include <iostream>
 #include "Price.h"
-
 using namespace std;
 
-void Search(Price* arr, int n, string name)
-{
-	if (name != "0") {
-		bool flag = 0;
-		for (int i = 0; i < n; i++)
-			if (arr[i].getName() == name) {
-				cout << arr[i];
-				flag = 1;
-			}
-		if (!flag)
-			cout << "Product Not Found" << endl;
-	}
-	return;
-}
+void Search(Price* arr, int n, string name);
 
 int main()
 {
@@ -58,4 +44,19 @@ int main()
 		cin >> searchName;
 		Search(list, n, searchName);
 	}
+}
+
+void Search(Price* arr, int n, string name)
+{
+	if (name != "0") {
+		bool flag = 0;
+		for (int i = 0; i < n; i++)
+			if (arr[i].getName() == name) {
+				cout << arr[i];
+				flag = 1;
+			}
+		if (!flag)
+			cout << "Product Not Found" << endl;
+	}
+	return;
 }
