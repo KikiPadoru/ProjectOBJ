@@ -1,5 +1,6 @@
 #pragma once
-#include <iostream>
+
+#include <fstream>
 #include <string>
 
 using namespace std;
@@ -34,4 +35,7 @@ public:
 	//IO
 	friend istream& operator>>(istream& is, Price& a);
 	friend ostream& operator<<(ostream& os, const Price a);
+	void writeBin(fstream& file);
+	void readBin(fstream& file);
+
 };

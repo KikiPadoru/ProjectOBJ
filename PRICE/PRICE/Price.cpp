@@ -83,6 +83,16 @@ bool Price::operator==(const Price a)
 	return this->cost == a.cost;
 }
 
+void Price::writeBin(fstream& file)
+{
+	file.write((char*)this, sizeof(*this));
+}
+
+void Price::readBin(fstream& file)
+{
+	file.read((char*)this, sizeof(*this));
+}
+
 ostream& operator<<(ostream& os, const Price a)
 {
 	return os << a.name << " " << a.shop << " " << a.cost << endl;
