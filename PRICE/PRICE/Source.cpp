@@ -21,7 +21,6 @@ void Search(Price* arr, int n, string name)
 int main()
 {
 	fstream in("list.txt");
-	fstream out("PriceList.bin", ios::out |  ios::binary);
 
 	int n;
 	in >> n;
@@ -35,17 +34,17 @@ int main()
 
 	qsort(list, n, sizeof(Price), Price::compSpree);
 
+	fstream out("PriceList.bin", ios::out | ios::binary);
 	for (int i = 0; i < n; i++)
 		list[i].writeBin(out);
-
 	out.close();
 
 	fstream in1("PriceList.bin", ios::in | ios::binary);
-
-	for (int i = 0; i < n; i++) 
+	for (int i = 0; i < n; i++)
 	{
 		list[i].readBin(in1);
 	}
+	in1.close();
 
 	for (int i = 0; i < n; i++)
 	{
@@ -59,5 +58,4 @@ int main()
 		cin >> searchName;
 		Search(list, n, searchName);
 	}
-	
-}	
+}
