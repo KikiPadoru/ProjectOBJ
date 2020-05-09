@@ -38,5 +38,4 @@ public:
 	//binary I/O
 	void writeBin(fstream& file);
 	void readBin(fstream& file);
-
 };
