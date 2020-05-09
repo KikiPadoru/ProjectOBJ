@@ -31,11 +31,11 @@ string Price::getShop()
 	return this->shop;
 }
 
-int Price::compName(const void* a, void const* b)
+int Price::compName(const void* a, const void* b)
 {
 	Price* A = (Price*)a;
 	Price* B = (Price*)b;
-	return strcmp(A->getName().c_str(), B->getName().c_str());
+	return A->getName().compare(B->getName());
 }
 
 int Price::compShop(const void* a, const void* b)
@@ -47,8 +47,8 @@ int Price::compShop(const void* a, const void* b)
 
 int Price::compCost(const void* a, const void* b)
 {
-	Price A = *(Price*)a;
-	Price B = *(Price*)b;
+	Price A = *((Price*)a);
+	Price B = *((Price*)b);
 	if (A > B)
 		return 1;
 	else if (A == B)
