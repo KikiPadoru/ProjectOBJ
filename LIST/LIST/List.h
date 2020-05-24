@@ -162,7 +162,7 @@ public:
 		{
 			if (cur->info > cur->next->info)
 			{
-				cout << "Are you stupid? It does not sorted! " << value << endl;
+				cout << "It does not sorted! " << value << endl;
 				return;
 			}
 			cur = cur->next;

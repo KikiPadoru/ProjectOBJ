@@ -35,6 +35,7 @@ int main()
 	insertionSort(A, A.getSize());
 	A.insert_at_sort(2);
 	A.insert_at_sort(4);
+	A.insert_at_sort(4);
 	A.insert_at_sort(90);
 	A.insert_at_sort(-70);
 	A.print();
