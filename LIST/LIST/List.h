@@ -32,6 +32,7 @@ public:
 	}
 	~List<T>() {}
 
+	//Dobavit' v konec
 	void push_back(T info)
 	{
 		if (head == nullptr)
@@ -50,7 +51,7 @@ public:
 		}
 		Size++;
 	}
-
+	//Dobavit' v nachalo
 	void push_front(T info)
 	{
 		Node<T>* h = new Node<T>(info);
@@ -79,19 +80,23 @@ public:
 		}
 	}
 
-	Node<T>* search(T s)
+	//Poisk po znacheniyu
+	int search(T s)
 	{
+		int counter = 0;
 		Node<T>* cur = this->head;
-		while (cur->next != nullptr)
+		while (cur)
 		{
 			if (cur->info == s)
 			{
-				return cur;
+				return counter;
 			}
 			cur = cur->next;
+			counter++;
 		}
 	}
 
+	//Udalit' element
 	void del(T del, Node<T>* pos = nullptr)
 	{
 		Node<T>* cur = this->head;
@@ -101,7 +106,6 @@ public:
 
 		if (this->head->info == del && !pos)
 		{
-			cout << "Element '" << this->head->info << "' has been deleted" << endl;
 			this->head = this->head->next;
 			Size--;
 			return;
@@ -110,7 +114,6 @@ public:
 		{
 			if (cur->next->info == del)
 			{
-				cout << "Element '" << cur->next->info << "' has been deleted" << endl;
 				cur->next = cur->next->next;
 				Size--;
 				return;
@@ -119,6 +122,7 @@ public:
 		}
 	}
 
+	//Udalit' duplikaty
 	void dedup()
 	{
 		Node<T>* cur = this->head;
@@ -130,6 +134,7 @@ public:
 		}
 	}
 
+	//Metod vyvoda
 	void print()
 	{
 		Node<T>* cur = this->head;
@@ -141,11 +146,13 @@ public:
 		cout << endl;
 	}
 
+	//Proverka na pustotu
 	bool isEmpty()
 	{
 		return !(this->Size);
 	}
 
+	//Poluchit' indeks po znacheniyu
 	int get_pos(T value)
 	{
 		Node<T>* cur = this->head;
@@ -159,6 +166,7 @@ public:
 		return pos;
 	}
 
+	//Vstavka v otsortirovannyj spisok
 	void insert_at_sort(T value)
 	{
 		Node<T>* cur = this->head;
@@ -166,7 +174,7 @@ public:
 		{
 			if (cur->info > cur->next->info)
 			{
-				cout << "It does not sorted! " << value << endl;
+				cout << "It does not sorted!" << endl;
 				return;
 			}
 			cur = cur->next;
@@ -188,26 +196,22 @@ public:
 			counter++;
 		}
 	}
+
+	//Poluchit' razmer
 	int getSize()
 	{
 		return this->Size;
 	}
+
 	friend ostream& operator<<(ostream& os, const List<T> a)
 	{
 		Node<T>* cur = a.head;
 		while (cur)
 		{
-			os << cur->info << " ";
+			os << cur->info;
 			cur = cur->next;
 		}
 		return os;
-	}
-	friend istream& operator>>(istream& is, List<T>& a)
-	{
-		T value;
-		is << value;
-		a.push_back(value);
-		return is;
 	}
 };
 

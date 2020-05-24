@@ -1,5 +1,6 @@
 #include <iostream>
 #include "List.h"
+#include "Price.h"
 using namespace std;
 
 template <class T>
@@ -19,32 +20,38 @@ void insertionSort(List<T> A, int n)
 
 int main()
 {
-	List<int> A;
-	cout << "isEmpty? - " << A.isEmpty() << endl;
-	A.push_back(5);	
-	A.push_back(6);	
-	A.push_back(8);	
-	A.push_front(3);
-	A.push_back(5); 
-	A.push_back(5); 
-	A.push_back(5); 
-	A.push_front(-35);
-	A.push_back(90);
-	A.push_front(90);
-	A.print();
-	A.dedup();
-	cout << "Dedup is Here" << endl << A << endl;
-	A.insert_at_sort(5);
-	A.del(-35);
-	A.print();
+	List<Price> A;
+	cout << "Is empty? - " << A.isEmpty() << endl << endl;
+
+	Price a("SomeProduct", "SomeShop", 26);
+	Price b("SameProduct", "SameShop", 16);
+	Price c("S", "&", 10);
+	Price d("D", "#", 4);
+
+	A.push_back(a);
+	A.push_back(b);
+	A.push_back(c);
+	A.push_front(d);
+
+	cout << A << endl;
+
+	cout << A.search(c) << endl;
+	A.del(d);
+
+	A.insert_at_sort(a);
+
+	cout << endl << "Is empty? - " << A.isEmpty() << endl << endl;
+	cout << "Sorted:" << endl;
 	insertionSort(A, A.getSize());
-	A.insert_at_sort(2);
-	A.insert_at_sort(4);
-	A.insert_at_sort(4);
-	A.insert_at_sort(90);
-	A.insert_at_sort(90);
-	A.insert_at_sort(-70);
-	A.insert_at_sort(-70);
-	A.print();
+
+	A.insert_at_sort(a);
+
+	cout << A << endl;
+
+	A.dedup();
+	cout << "After dedup" << endl << A;
+
+
+
 
 }
