@@ -28,9 +28,9 @@ int main()
 	A.push_back(5);
 	A.push_front(-35);
 	A.print();
-	A.insert_at_sort(90, 5);
+	A.insert_at_sort(90);
 	A.print();
 	insertionSort(A, A.getSize());
-	A.insert_at_sort(5, 90);
+	A.insert_at_sort(90);
 	A.print();
 }

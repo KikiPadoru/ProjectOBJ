@@ -127,9 +127,10 @@ public:
 		return 1;
 	}
 
-	void insert_at_sort(int pos, T value)
+	void insert_at_sort(T value)
 	{
 		Node<T>* cur = this->head;
+		int pos = 0;
 		while (cur->next != nullptr)
 		{
 			if (cur->info > cur->next->info)
@@ -137,6 +138,7 @@ public:
 				cout << "Are you stupid? It does not sorted!" << endl;
 				return;
 			}
+			pos++;
 			cur = cur->next;
 		}
 		insert(pos, value);
