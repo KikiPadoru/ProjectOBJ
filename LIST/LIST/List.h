@@ -18,6 +18,18 @@ private:
 			this->info = info;
 			this->next = next;
 		}
+		bool operator>(const Node a)
+		{
+			return info > a.info;
+		}
+		bool operator<(const Node a)
+		{
+			return info < a.info;
+		}
+		bool operator==(const Node a)
+		{
+			return info == a.info;
+		}
 	};
 
 	int Size;
@@ -61,6 +73,27 @@ public:
 		Size++;
 	}
 
+	void insert(int pos, T info)
+	{
+		if (pos == 0)
+			push_front(info);
+		else if (pos > this->Size)
+			push_back(info);
+		else
+		{
+			Node<T>* cur = this->head;
+			int counter = 0;
+			while (counter != pos - 1)
+			{
+				cur = cur->next;
+				counter++;
+			}
+			cur->next = new Node<T>(info, cur->next);
+			Size++;
+		}
+	}
+	// 1 2 3 4 5
+
 	Node<T>* search(T s)
 	{
 		Node<T>* cur = this->head;
@@ -102,8 +135,23 @@ public:
 
 	int isEmpty()
 	{
-		if (Size) return 1;
-		return 0;
+		if (Size) return 0;
+		return 1;
+	}
+
+	void insert_at_sort(int pos, T value)
+	{
+		Node<T>* cur = this->head;
+		while (cur->next != nullptr)
+		{
+			if (cur->info > cur->next->info)
+			{
+				cout << "Are you stupid? It does not sorted!" << endl;
+				return;
+			}
+			cur = cur->next;
+		}
+		insert(pos, value);
 	}
 
 	T& operator[](const int index)
