@@ -23,7 +23,6 @@ private:
 	int Size;
 	Node<T>* head;
 
-
 public:
 
 	List<T>()
@@ -38,7 +37,6 @@ public:
 		if (head == nullptr)
 		{
 			head = new Node<T>(info);
-			Size++;
 		}
 		else
 		{
@@ -49,8 +47,8 @@ public:
 				cur = cur->next;
 			}
 			cur->next = new Node<T>(info);
-			Size++;
 		}
+		Size++;
 	}
 
 	void push_front(T info)
@@ -99,15 +97,22 @@ public:
 	{
 		Node<T>* cur = this->head;
 
-		if (pos != nullptr)
+		if (pos)
 			cur = pos;
 
 		while (cur->next != nullptr)
 		{
-			if (cur->next->info == del)
+			if (this->head->info == del && !pos)
 			{
+				cout << this->head->info << " has been deleted" << endl;
+				this->head = this->head->next;
+				Size--;
+				return;
+			}
+			else if (cur->next->info == del)
+			{
+				cout << cur->next->info << " has been deleted" << endl;
 				cur->next = cur->next->next;
-				cur = this->head;
 				Size--;
 				return;
 			}
@@ -118,7 +123,7 @@ public:
 	void dedup()
 	{
 		Node<T>* cur = this->head;
-		while (cur)
+		while (cur->next != nullptr)
 		{
 			for (int i = 0; i < this->Size; i++)
 				del(cur->info, cur);
@@ -184,12 +189,10 @@ public:
 			counter++;
 		}
 	}
-
 	int getSize()
 	{
 		return this->Size;
 	}
-
 	friend ostream& operator<<(ostream& os, const List<T> a)
 	{
 		Node<T>* cur = a.head;
@@ -200,6 +203,13 @@ public:
 		}
 		return os;
 	}
-
+	friend istream& operator>>(istream& is, List<T>& a)
+	{
+		T value;
+		is << value;
+		a.push_back(value);
+		return is;
+	}
 };
 
+	
