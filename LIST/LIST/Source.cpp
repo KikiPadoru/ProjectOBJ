@@ -29,7 +29,11 @@ int main()
 	A.push_back(5); 
 	A.push_back(5); 
 	A.push_front(-35);
+	A.push_back(90);
+	A.push_front(90);
 	A.print();
+	A.dedup();
+	cout << "Dedup is Here" << endl << A << endl;
 	A.insert_at_sort(5);
 	A.del(-35);
 	A.print();
@@ -40,7 +44,7 @@ int main()
 	A.insert_at_sort(90);
 	A.insert_at_sort(90);
 	A.insert_at_sort(-70);
+	A.insert_at_sort(-70);
 	A.print();
-	A.dedup();
-	A.print();
+
 }

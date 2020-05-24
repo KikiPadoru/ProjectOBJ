@@ -79,7 +79,6 @@ public:
 		}
 	}
 
-
 	Node<T>* search(T s)
 	{
 		Node<T>* cur = this->head;
@@ -102,7 +101,7 @@ public:
 
 		if (this->head->info == del && !pos)
 		{
-			cout << this->head->info << " has been deleted" << endl;
+			cout << "Element '" << this->head->info << "' has been deleted" << endl;
 			this->head = this->head->next;
 			Size--;
 			return;
@@ -111,7 +110,7 @@ public:
 		{
 			if (cur->next->info == del)
 			{
-				cout << cur->next->info << " has been deleted" << endl;
+				cout << "Element '" << cur->next->info << "' has been deleted" << endl;
 				cur->next = cur->next->next;
 				Size--;
 				return;
