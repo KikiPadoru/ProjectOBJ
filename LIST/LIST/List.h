@@ -80,7 +80,7 @@ public:
 			Size++;
 		}
 	}
-	// 1 2 3 4 5
+
 
 	Node<T>* search(T s)
 	{
@@ -127,21 +127,32 @@ public:
 		return 1;
 	}
 
-	void insert_at_sort(T value)
+	int get_pos(T value)
 	{
 		Node<T>* cur = this->head;
 		int pos = 0;
+		while (cur)
+		{
+			if (value > cur->info)
+				pos++;
+			cur = cur->next;
+		}
+		return pos;
+	}
+
+	void insert_at_sort(T value)
+	{
+		Node<T>* cur = this->head;
 		while (cur->next != nullptr)
 		{
 			if (cur->info > cur->next->info)
 			{
-				cout << "Are you stupid? It does not sorted!" << endl;
+				cout << "Are you stupid? It does not sorted! " << value << endl;
 				return;
 			}
-			pos++;
 			cur = cur->next;
 		}
-		insert(pos, value);
+		insert(get_pos(value), value);
 	}
 
 	T& operator[](const int index)
