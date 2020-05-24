@@ -18,18 +18,6 @@ private:
 			this->info = info;
 			this->next = next;
 		}
-		bool operator>(const Node a)
-		{
-			return info > a.info;
-		}
-		bool operator<(const Node a)
-		{
-			return info < a.info;
-		}
-		bool operator==(const Node a)
-		{
-			return info == a.info;
-		}
 	};
 
 	int Size;
