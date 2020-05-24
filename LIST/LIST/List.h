@@ -23,6 +23,7 @@ private:
 	int Size;
 	Node<T>* head;
 
+
 public:
 
 	List<T>()
