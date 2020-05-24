@@ -95,9 +95,12 @@ public:
 		}
 	}
 
-	void del(T del)
+	void del(T del, Node<T>* pos = nullptr)
 	{
 		Node<T>* cur = this->head;
+
+		if (pos != nullptr)
+			cur = pos;
 
 		while (cur->next != nullptr)
 		{
@@ -105,7 +108,20 @@ public:
 			{
 				cur->next = cur->next->next;
 				cur = this->head;
+				Size--;
+				return;
 			}
+			cur = cur->next;
+		}
+	}
+
+	void dedup()
+	{
+		Node<T>* cur = this->head;
+		while (cur)
+		{
+			for (int i = 0; i < this->Size; i++)
+				del(cur->info, cur);
 			cur = cur->next;
 		}
 	}
@@ -121,10 +137,9 @@ public:
 		cout << endl;
 	}
 
-	int isEmpty()
+	bool isEmpty()
 	{
-		if (Size) return 0;
-		return 1;
+		return !(this->Size);
 	}
 
 	int get_pos(T value)

@@ -20,11 +20,13 @@ void insertionSort(List<T> A, int n)
 int main()
 {
 	List<int> A;
-	cout << A.isEmpty() << endl; 
+	cout << "isEmpty? - " << A.isEmpty() << endl;
 	A.push_back(5);
 	A.push_back(6);
 	A.push_back(8);
 	A.push_front(3);
+	A.push_back(5);
+	A.push_back(5);
 	A.push_back(5);
 	A.push_front(-35);
 	A.print();
@@ -36,4 +38,7 @@ int main()
 	A.insert_at_sort(90);
 	A.insert_at_sort(-70);
 	A.print();
+	A.dedup();
+	A.print();
+	cout << "isEmpty? - " << A.isEmpty() << endl;
 }
