@@ -100,16 +100,16 @@ public:
 		if (pos)
 			cur = pos;
 
+		if (this->head->info == del && !pos)
+		{
+			cout << this->head->info << " has been deleted" << endl;
+			this->head = this->head->next;
+			Size--;
+			return;
+		}
 		while (cur->next != nullptr)
 		{
-			if (this->head->info == del && !pos)
-			{
-				cout << this->head->info << " has been deleted" << endl;
-				this->head = this->head->next;
-				Size--;
-				return;
-			}
-			else if (cur->next->info == del)
+			if (cur->next->info == del)
 			{
 				cout << cur->next->info << " has been deleted" << endl;
 				cur->next = cur->next->next;
@@ -123,7 +123,7 @@ public:
 	void dedup()
 	{
 		Node<T>* cur = this->head;
-		while (cur->next != nullptr)
+		while (cur)
 		{
 			for (int i = 0; i < this->Size; i++)
 				del(cur->info, cur);
