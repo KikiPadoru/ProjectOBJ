@@ -42,4 +42,5 @@ int main()
 	A.dedup();
 	A.print();
 	cout << "isEmpty? - " << A.isEmpty() << endl;
+	cout << A;
 }

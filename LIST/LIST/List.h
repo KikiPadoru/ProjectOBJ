@@ -189,5 +189,17 @@ public:
 	{
 		return this->Size;
 	}
+
+	friend ostream& operator<<(ostream& os, const List<T> a)
+	{
+		Node<T>* cur = a.head;
+		while (cur)
+		{
+			os << cur->info << " ";
+			cur = cur->next;
+		}
+		return os;
+	}
+
 };
 
