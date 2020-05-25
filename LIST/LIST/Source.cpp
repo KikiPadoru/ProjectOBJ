@@ -33,6 +33,7 @@ int main()
 
 	Price g("NewProduct", "NewShop", 45);
 	Price h("OldProduct", "OldShop", 3);
+	Price j("BB", "R", 464);
 
 	A.push_back(g);
 	A.push_front(h);
@@ -48,8 +49,6 @@ int main()
 
 	cout << "Delete 2 items" << endl << A << endl;
 	cout << "Item '" << g <<"' locate at " << A.search(g) + 1 << " position" << endl << A << endl;
-
-	Price j("BB", "R", 464);
 
 	A.insert_at_sort(j);
 
