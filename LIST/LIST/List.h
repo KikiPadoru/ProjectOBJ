@@ -96,7 +96,7 @@ public:
 		}
 	}
 
-	//Udalit' element
+	//Udalit' element po znacheniyu
 	void del(T del, Node<T>* pos = nullptr)
 	{
 		Node<T>* cur = this->head;
@@ -184,23 +184,53 @@ public:
 
 	T& operator[](const int index)
 	{
-		int counter = 0;
-		Node<T>* cur = this->head;
-		while (cur != nullptr)
-		{
-			if (counter == index)
-			{
-				return cur->info;
-			}
-			cur = cur->next;
-			counter++;
-		}
+		return get_node(index)->info;
 	}
 
 	//Poluchit' razmer
 	int getSize()
 	{
 		return this->Size;
+	}
+
+	Node<T>* get_node(const int index)
+	{
+		int counter = 0;
+		Node<T>* cur = this->head;
+		while (cur != nullptr)
+		{
+			if (counter == index)
+			{
+				return cur;
+			}
+			cur = cur->next;
+			counter++;
+		}
+	}
+
+	void insertion_sort()
+	{
+		for (int i = 1; i < Size; i++) {
+			Node<T>* key = get_node(i);
+			delete_node(i);
+			int j = i - 1;
+			while (j >= 0 && (*this)[j] > key->info)
+			{
+				j = j - 1;
+			}
+			insert(j + 1, key->info);
+		}
+	}
+
+	void delete_node(const int index)
+	{
+		if (index > 0) {
+			Node<T>* to_del = get_node(index - 1);
+			to_del->next = to_del->next->next;
+		}
+		else
+			this->head = this->head->next;
+		Size--;
 	}
 
 	friend ostream& operator<<(ostream& os, const List<T> a)
