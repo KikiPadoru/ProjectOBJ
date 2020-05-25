@@ -59,4 +59,18 @@ int main()
 	A.dedup();
 
 	cout << "Duplicate removing" << endl << A << endl;
+
+	List<Price> B(A);
+
+	cout << "Copy of A" << endl << B;
+
+	cout << "Compare A and B: " << A.list_compare(B) << endl << endl;
+
+	B.del(j);
+	B.push_back(j);
+
+	cout << "Push item to end of list" << endl << B;
+
+	cout << "Compare A and B: " << A.list_compare(B) << endl;
 }	
+

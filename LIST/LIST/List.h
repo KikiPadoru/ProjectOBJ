@@ -55,6 +55,16 @@ public:
 		Size = 0;
 		head = nullptr;
 	}
+	List<T>(const List<T>& a)
+	{
+		Size = 0;
+		head = nullptr;
+		Node<T>* cur = a.head;
+		while (cur) {
+			push_back(cur->info);
+			cur = cur->next;
+		}
+	}
 	~List<T>() {}
 
 	void push_back(T info)
@@ -201,12 +211,31 @@ public:
 			Node<T>* key = get_node(i);
 			delete_node(i);
 			int j = i - 1;
-			while (j >= 0 && (*this)[j] > (key->info))
+			while (j >= 0 && (*this)[j] > key->info)
 			{
 				j = j - 1;
 			}
 			insert(j + 1, key->info);
 		}
+	}
+	
+	bool list_compare(const List<T> a)
+	{
+		if (this->Size == a.Size)
+		{
+			Node<T>* cur_A = this->head;
+			Node<T>* cur_B = a.head;
+			while (cur_A)
+			{
+				if (cur_A->info != cur_B->info)
+					return 0;
+				cur_A = cur_A->next;
+				cur_B = cur_B->next;
+			}
+		}
+		else
+			return 0;
+		return 1;
 	}
 
 	friend ostream& operator<<(ostream& os, const List<T> a)

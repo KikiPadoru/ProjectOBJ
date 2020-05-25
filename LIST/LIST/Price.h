@@ -24,6 +24,7 @@ public:
 	bool operator>(const Price a);
 	bool operator<(const Price a);
 	bool operator==(const Price a);
+	bool operator!=(const Price a);
 
 	//I/O
 	friend istream& operator>>(istream& is, Price& a);

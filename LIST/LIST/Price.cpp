@@ -58,6 +58,11 @@ bool Price::operator==(const Price a)
 	return this->name.compare(a.name) == 0 && this->shop.compare(a.shop) == 0 && this->cost == a.cost;
 }
 
+bool Price::operator!=(const Price a)
+{
+	return this->name.compare(a.name) != 0 || this->shop.compare(a.shop) != 0 || this->cost != a.cost;
+}
+
 void Price::writeBin(fstream& file)
 {
 	file.write((char*)this, sizeof(*this));
