@@ -35,6 +35,19 @@ private:
 		Size--;
 	}
 
+	int get_pos(T value)
+	{
+		Node<T>* cur = this->head;
+		int pos = 0;
+		while (cur)
+		{
+			if (value > cur->info)
+				pos++;
+			cur = cur->next;
+		}
+		return pos;
+	}
+
 public:
 
 	List<T>()
@@ -44,7 +57,6 @@ public:
 	}
 	~List<T>() {}
 
-	//Dobavit' v konec
 	void push_back(T info)
 	{
 		if (head == nullptr)
@@ -63,7 +75,7 @@ public:
 		}
 		Size++;
 	}
-	//Dobavit' v nachalo
+
 	void push_front(T info)
 	{
 		Node<T>* h = new Node<T>(info);
@@ -92,7 +104,6 @@ public:
 		}
 	}
 
-	//Poisk po znacheniyu
 	int search(T s)
 	{
 		int counter = 0;
@@ -108,7 +119,6 @@ public:
 		}
 	}
 
-	//Udalit' element po znacheniyu
 	void del(T del, Node<T>* pos = nullptr)
 	{
 		Node<T>* cur = this->head;
@@ -134,7 +144,6 @@ public:
 		}
 	}
 
-	//Udalit' duplikaty
 	void dedup()
 	{
 		Node<T>* cur = this->head;
@@ -146,39 +155,11 @@ public:
 		}
 	}
 
-	//Metod vyvoda
-	void print()
-	{
-		Node<T>* cur = this->head;
-		while (cur)
-		{
-			cout << cur->info << " ";
-			cur = cur->next;
-		}
-		cout << endl;
-	}
-
-	//Proverka na pustotu
 	bool isEmpty()
 	{
 		return !(this->Size);
 	}
 
-	//Poluchit' indeks po znacheniyu
-	int get_pos(T value)
-	{
-		Node<T>* cur = this->head;
-		int pos = 0;
-		while (cur)
-		{
-			if (value > cur->info)
-				pos++;
-			cur = cur->next;
-		}
-		return pos;
-	}
-
-	//Vstavka v otsortirovannyj spisok
 	void insert_at_sort(T value)
 	{
 		Node<T>* cur = this->head;
@@ -197,12 +178,6 @@ public:
 	T& operator[](const int index)
 	{
 		return get_node(index)->info;
-	}
-
-	//Poluchit' razmer
-	int getSize()
-	{
-		return this->Size;
 	}
 
 	Node<T>* get_node(const int index)
