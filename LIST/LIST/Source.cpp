@@ -47,7 +47,6 @@ int main()
 	A.del(A[2]);
 
 	cout << "Delete 2 items" << endl << A << endl;
-
 	cout << "Item '" << g <<"' locate at " << A.search(g) + 1 << " position" << endl << A << endl;
 
 	Price j("BB", "R", 464);
@@ -63,14 +62,29 @@ int main()
 	List<Price> B(A);
 
 	cout << "Copy of A" << endl << B;
-
 	cout << "Compare A and B: " << A.list_compare(B) << endl << endl;
 
 	B.del(j);
 	B.push_back(j);
 
 	cout << "Push item to end of list" << endl << B;
+	cout << "Compare A and B: " << A.list_compare(B) << endl << endl;
 
-	cout << "Compare A and B: " << A.list_compare(B) << endl;
+	for (int i = 6; i < B.get_Size();)
+		B.delete_node(i);
+
+	cout << "List B" << endl << B;
+	cout << "List B is Subset of A: " << B.isSubset(A) << endl << endl;
+
+	B.delete_node(0);
+
+	cout << "Delete first item of List B" << endl << B;
+	cout << "List B is Subset of A: " << B.isSubset(A) << endl << endl;
+
+	B.push_back(g);
+
+	cout << "Add new item to List B" << endl << B;
+	cout << "List B is Subset of A: " << B.isSubset(A) << endl;
+
 }	
 

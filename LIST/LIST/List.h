@@ -24,17 +24,6 @@ private:
 	int Size;
 	Node<T>* head;
 
-	void delete_node(const int index)
-	{
-		if (index > 0) {
-			Node<T>* to_del = get_node(index - 1);
-			to_del->next = to_del->next->next;
-		}
-		else
-			this->head = this->head->next;
-		Size--;
-	}
-
 	int get_pos(T value)
 	{
 		Node<T>* cur = this->head;
@@ -69,7 +58,7 @@ public:
 
 	void push_back(T info)
 	{
-		if (head == nullptr)
+		if (head == nullptr)	
 		{
 			head = new Node<T>(info);
 		}
@@ -154,6 +143,17 @@ public:
 		}
 	}
 
+	void delete_node(const int index)
+	{
+		if (index > 0) {
+			Node<T>* to_del = get_node(index - 1);
+			to_del->next = to_del->next->next;
+		}
+		else
+			this->head = this->head->next;
+		Size--;
+	}
+
 	void dedup()
 	{
 		Node<T>* cur = this->head;
@@ -235,6 +235,27 @@ public:
 		}
 		else
 			return 0;
+		return 1;
+	}
+
+	int get_Size()
+	{
+		return this->Size;
+	}
+
+	bool isSubset(const List<T> a)
+	{
+		Node<T>* cur_A = this->head;
+		Node<T>* cur_B = a.head;
+		while (cur_A->info != cur_B->info)
+			cur_B = cur_B->next;
+		while (cur_A)
+		{
+			if (cur_A->info != cur_B->info)
+				return 0;
+			cur_A = cur_A->next;
+			cur_B = cur_B->next;
+		}
 		return 1;
 	}
 
