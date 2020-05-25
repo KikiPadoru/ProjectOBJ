@@ -1,4 +1,5 @@
 #pragma once
+#include "Price.h"
 #include <iostream>
 using namespace std;
 
@@ -22,6 +23,17 @@ private:
 
 	int Size;
 	Node<T>* head;
+
+	void delete_node(const int index)
+	{
+		if (index > 0) {
+			Node<T>* to_del = get_node(index - 1);
+			to_del->next = to_del->next->next;
+		}
+		else
+			this->head = this->head->next;
+		Size--;
+	}
 
 public:
 
@@ -214,7 +226,7 @@ public:
 			Node<T>* key = get_node(i);
 			delete_node(i);
 			int j = i - 1;
-			while (j >= 0 && (*this)[j] > key->info)
+			while (j >= 0 && (*this)[j] > (key->info))
 			{
 				j = j - 1;
 			}
@@ -222,26 +234,23 @@ public:
 		}
 	}
 
-	void delete_node(const int index)
-	{
-		if (index > 0) {
-			Node<T>* to_del = get_node(index - 1);
-			to_del->next = to_del->next->next;
-		}
-		else
-			this->head = this->head->next;
-		Size--;
-	}
-
 	friend ostream& operator<<(ostream& os, const List<T> a)
 	{
 		Node<T>* cur = a.head;
 		while (cur)
 		{
-			os << cur->info;
+			os << cur->info << endl;
 			cur = cur->next;
 		}
 		return os;
+	}
+
+	friend istream& operator>>(istream& is, List<T>& a)
+	{
+		T in;	
+		is >> in;
+		a.push_back(in);
+		return is;
 	}
 };
 

@@ -20,12 +20,6 @@ public:
 	string getName();
 	string getShop();
 
-	//SortMethods
-	static int compName(const void* a, const void* b);
-	static int compShop(const void* a, const void* b);
-	static int compCost(const void* a, const void* b);
-	static int compSpree(const void* a, const void* b);
-
 	//Compare
 	bool operator>(const Price a);
 	bool operator<(const Price a);

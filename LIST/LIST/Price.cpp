@@ -31,56 +31,31 @@ string Price::getShop()
 	return this->shop;
 }
 
-int Price::compName(const void* a, void const* b)
-{
-	Price* A = (Price*)a;
-	Price* B = (Price*)b;
-	return strcmp(A->getName().c_str(), B->getName().c_str());
-}
-
-int Price::compShop(const void* a, const void* b)
-{
-	Price* A = (Price*)a;
-	Price* B = (Price*)b;
-	return A->getShop().compare(B->getShop());
-}
-
-int Price::compCost(const void* a, const void* b)
-{
-	Price A = *(Price*)a;
-	Price B = *(Price*)b;
-	if (A > B)
-		return 1;
-	else if (A == B)
-		return 0;
-	else
-		return -1;
-}
-
-int Price::compSpree(const void* a, const void* b)
-{
-	if (!compName(a, b))
-		if (!compShop(a, b))
-			return compCost(a, b);
-		else
-			return compShop(a, b);
-	else
-		return compName(a, b);
-}
-
 bool Price::operator>(const Price a)
 {
-	return this->cost > a.cost;
+	if (!(this->name.compare(a.name)))
+		if (!(this->shop.compare(a.shop)))
+			return this->cost > a.cost;
+		else
+			return this->shop.compare(a.shop) > 0;
+	else
+		return this->name.compare(a.name) > 0;
 }
 
 bool Price::operator<(const Price a)
 {
-	return this->cost < a.cost;
+	if (!(this->name.compare(a.name)))
+		if (!(this->shop.compare(a.shop)))
+			return this->cost < a.cost;
+		else
+			return this->shop.compare(a.shop) < 0;
+	else
+		return this->name.compare(a.name) < 0;
 }
 
 bool Price::operator==(const Price a)
 {
-	return this->cost == a.cost;
+	return this->name.compare(a.name) == 0 && this->shop.compare(a.shop) == 0 && this->cost == a.cost;
 }
 
 void Price::writeBin(fstream& file)
@@ -95,7 +70,7 @@ void Price::readBin(fstream& file)
 
 ostream& operator<<(ostream& os, const Price a)
 {
-	return os << a.name << " " << a.shop << " " << a.cost << endl;
+	return os << a.name << " " << a.shop << " " << a.cost;
 }
 
 istream& operator>>(istream& is, Price& a)

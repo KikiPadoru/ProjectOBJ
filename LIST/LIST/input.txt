@@ -1,0 +1,12 @@
+11
+A X 1
+B X 4
+A Y 2
+A Y 2
+A Y 2
+C Y 3
+C X 7 
+B Z 6
+B X 3
+B X 3
+A X 0
