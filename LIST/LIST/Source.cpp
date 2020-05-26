@@ -30,6 +30,7 @@ int main()
 	else
 		cout << "List is not Empty" << endl << endl;
 
+	char a;
 
 	Price g("NewProduct", "NewShop", 45);
 	Price h("OldProduct", "OldShop", 3);
@@ -54,7 +55,7 @@ int main()
 
 	cout << "Adding new item without sort" << endl << A << endl;
 
-	A.dedup();
+	//A.dedup();
 
 	cout << "Duplicate removing" << endl << A << endl;
 
@@ -81,6 +82,7 @@ int main()
 	cout << "List B is Subset of A: " << B.isSubset(A) << endl << endl;
 
 	B.push_back(g);
+	B.pop_front();
 
 	cout << "Add new item to List B" << endl << B;
 	cout << "List B is Subset of A: " << B.isSubset(A) << endl;

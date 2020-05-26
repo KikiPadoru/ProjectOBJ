@@ -1,5 +1,4 @@
 #pragma once
-#include "Price.h"
 #include <iostream>
 using namespace std;
 
@@ -20,15 +19,34 @@ private:
 		}
 	};
 
+	//Init
 	int Size;
 	Node<T>* head;
 
+	//Miscellaneous
 	int get_pos(T value);
-
+	Node<T>* get_node(const int index)
+	{
+		int counter = 0;
+		Node<T>* cur = this->head;
+		while (cur)
+		{
+			if (counter == index)
+			{
+				return cur;
+			}
+			cur = cur->next;
+			counter++;
+		}
+	}
 public:
-	//Constructors
+
+	//Default Constructor
 	List<T>();
+	//Copy Constructor
 	List<T>(const List<T>& a);
+	//Destructor
+	~List<T>() { clear(); }
 
 	//Addition
 	void push_back(T info);
@@ -42,7 +60,9 @@ public:
 	//Deletion
 	void del(T del, Node<T>* pos = nullptr);
 	void delete_node(const int index);
-	
+	void pop_front();
+	void clear();
+
 	//Sorting
 	void insertion_sort();
 
@@ -70,29 +90,13 @@ public:
 		return os;
 	}
 
-	//Intput
+	//Input
 	friend istream& operator>>(istream& is, List<T>& a)
 	{
 		T in;	
 		is >> in;
 		a.push_back(in);
 		return is;
-	}
-
-	//Miscellaneous
-	Node<T>* get_node(const int index)
-	{
-		int counter = 0;
-		Node<T>* cur = this->head;
-		while (cur != nullptr)
-		{
-			if (counter == index)
-			{
-				return cur;
-			}
-			cur = cur->next;
-			counter++;
-		}
 	}
 };
 
@@ -210,8 +214,25 @@ inline void List<T>::delete_node(const int index)
 		to_del->next = to_del->next->next;
 	}
 	else
-		this->head = this->head->next;
+		pop_front();
 	Size--;
+
+}
+
+template<class T>
+inline void List<T>::pop_front()
+{
+	Node<T>* tmp = this->head;
+	this->head = this->head->next;
+	Size--;
+	delete tmp;
+}
+
+template<class T>
+inline void List<T>::clear()
+{
+	while (this->Size)
+		pop_front();
 }
 
 template<class T>
