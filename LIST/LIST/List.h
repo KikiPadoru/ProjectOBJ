@@ -53,6 +53,7 @@ public:
 	void push_front(T info);
 	void insert(int pos, T info);
 	void insert_at_sort(T value);
+	void insert_node(int pos, Node<T>* node);
 
 	//Search
 	int search(T s);
@@ -214,7 +215,7 @@ inline void List<T>::delete_node(const int index)
 		to_del->next = to_del->next->next;
 	}
 	else
-		pop_front();
+		this->head = this->head->next;
 	Size--;
 
 }
@@ -270,6 +271,23 @@ inline void List<T>::insert_at_sort(T value)
 }
 
 template<class T>
+inline void List<T>::insert_node(int pos, Node<T>* node)
+{
+	if (pos == 0) {
+		node->next = this->head;
+		this->head = node;
+	}
+	else if (pos > this->Size)
+		get_node(Size - 1)->next = node;
+	else
+	{
+		node->next = get_node(pos);
+		get_node(pos - 1)->next = node;
+	}
+	Size++;
+}
+
+template<class T>
 inline T& List<T>::operator[](const int index)
 {
 	return get_node(index)->info;
@@ -286,7 +304,7 @@ inline void List<T>::insertion_sort()
 		{
 			j = j - 1;
 		}
-		insert(j + 1, key->info);
+		insert_node(j + 1, key);
 	}
 }
 template<class T>

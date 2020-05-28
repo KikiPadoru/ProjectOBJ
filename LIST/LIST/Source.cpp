@@ -55,7 +55,7 @@ int main()
 
 	cout << "Adding new item without sort" << endl << A << endl;
 
-	//A.dedup();
+	A.dedup();
 
 	cout << "Duplicate removing" << endl << A << endl;
 
@@ -76,13 +76,12 @@ int main()
 	cout << "List B" << endl << B;
 	cout << "List B is Subset of A: " << B.isSubset(A) << endl << endl;
 
-	B.delete_node(0);
+	B.pop_front();
 
 	cout << "Delete first item of List B" << endl << B;
 	cout << "List B is Subset of A: " << B.isSubset(A) << endl << endl;
 
 	B.push_back(g);
-	B.pop_front();
 
 	cout << "Add new item to List B" << endl << B;
 	cout << "List B is Subset of A: " << B.isSubset(A) << endl;
