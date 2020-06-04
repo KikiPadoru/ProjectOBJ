@@ -12,7 +12,6 @@ int main()
 {
 	char a[128] = "SSEQUENCE";
 	char b[128] = "SUBSEQUENCE";
-	char c[128] = "";
 
 	int** table = new int* [len(a) + 1];
 	for (int i = 0; i < len(a); i++)
