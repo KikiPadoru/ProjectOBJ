@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-//Сортировка вставками
+//РЎРѕСЂС‚РёСЂРѕРІРєР° РІСЃС‚Р°РІРєР°РјРё
 template <typename T>
 void insert_sort(T* arr, int n)
 {
@@ -17,7 +17,7 @@ void insert_sort(T* arr, int n)
 	}
 }
 
-//Сортировка пузырьком
+//РЎРѕСЂС‚РёСЂРѕРІРєР° РїСѓР·С‹СЂСЊРєРѕРј
 template <typename T>
 void bubble_sort(T* arr, int n)
 {
@@ -37,7 +37,7 @@ void bubble_sort(T* arr, int n)
 	}
 }
 
-//Сортировка шелла
+//РЎРѕСЂС‚РёСЂРѕРІРєР° С€РµР»Р»Р°
 template <typename T>
 void shell_sort(T* arr, int n)
 {
@@ -51,7 +51,7 @@ void shell_sort(T* arr, int n)
 			}
 }
 
-//Разбиение Хоара
+//Р Р°Р·Р±РёРµРЅРёРµ РҐРѕР°СЂР°
 template <typename T>
 int partition(T* arr, int l, int r)
 {
@@ -73,7 +73,7 @@ int partition(T* arr, int l, int r)
 	return	j;
 }
 
-//Быстрая сортировка
+//Р‘С‹СЃС‚СЂР°СЏ СЃРѕСЂС‚РёСЂРѕРІРєР°
 template <typename T>
 void quick_sort(T* arr, int l, int r)
 {
@@ -85,7 +85,7 @@ void quick_sort(T* arr, int l, int r)
 	}
 }
 
-//Сортировка расческой
+//РЎРѕСЂС‚РёСЂРѕРІРєР° СЂР°СЃС‡РµСЃРєРѕР№
 template <typename T>
 void comb_sort(T* arr, int n)
 {
@@ -121,7 +121,7 @@ void comb_sort(T* arr, int n)
 	}
 }
 
-//Сортировка выбором
+//РЎРѕСЂС‚РёСЂРѕРІРєР° РІС‹Р±РѕСЂРѕРј
 template <typename T>
 void selection_sort(T* arr, int n)
 {
