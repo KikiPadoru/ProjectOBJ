@@ -37,7 +37,7 @@ void bubble_sort(T* arr, int n)
 	}
 }
 
-//Сортировка шелла
+//Сортировка Шелла
 template <typename T>
 void shell_sort(T* arr, int n)
 {
@@ -143,6 +143,50 @@ void selection_sort(T* arr, int n)
 		}
 	}
 }
+//Пирамидальная (турнирная) сортировка
+template <typename T>
+void heap_sort(T* arr, int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = n / 2 - 1 - i / 2; j > -1; j--)
+		{
+			if (2 * j + 2 <= n - 1 - i)
+			{
+				if (arr[2 * j + 1] > arr[2 * j + 2])
+				{
+					if (arr[j] < arr[2 * j + 1])
+					{
+						T tmp = arr[j];
+						arr[j] = arr[2 * j + 1];
+						arr[2 * j + 1] = tmp;
+					}
+				}
+				else
+				{
+					if (arr[j] < arr[2 * j + 2])
+					{
+						T tmp = arr[j];
+						arr[j] = arr[2 * j + 2];
+						arr[2 * j + 2] = tmp;
+					}
+				}
+			}
+			else
+			{
+				if (2 * j + 1 <= n - 1 - i)
+					if (arr[j] < arr[2 * j + 1]) {
+						T tmp = arr[j];
+						arr[j] = arr[2 * j + 1];
+						arr[2 * j + 1] = tmp;
+					}
+			}
+		}
+		T tmp = arr[0];
+		arr[0] = arr[n - i - 1];
+		arr[n - i - 1] = tmp;
+	}
+}
 
 
 int main()
@@ -150,8 +194,8 @@ int main()
 	int arr_i[9] = { 1, 7, 34, 1, 56, -5, 341, 57, 31 };
 	char arr_c[9] = { 'b', 'a', 't', 'w','b' ,'z' ,'c' , 'v', '!' };
 
-	selection_sort(arr_i, 9);
-	selection_sort(arr_c, 9);
+	heap_sort(arr_i, 9);
+	heap_sort(arr_c, 9);
 
 	for (int i = 0; i < 9; i++)
 		cout << arr_i[i] << " ";
