@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-//Сортировка вставками
+//Сортировка вставками 
 template <typename T>
 void insert_sort(T* arr, int n)
 {
