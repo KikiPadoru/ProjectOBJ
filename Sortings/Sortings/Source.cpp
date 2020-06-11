@@ -188,14 +188,56 @@ void heap_sort(T* arr, int n)
 	}
 }
 
+//Слияние
+template<typename T>
+void merge(T* a, int left, int mid, int right) {
+	int it1 = 0;
+	int it2 = 0;
+
+	T* res = new T[right - left + 1];
+
+	while (left + it1 <= mid && mid + it2 < right) {
+		if (a[left + it1] < a[mid + it2 + 1]) {
+			res[it1 + it2] = a[left + it1];
+			it1 += 1;
+		}
+		else {
+			res[it1 + it2] = a[mid + it2 + 1];
+			it2 += 1;
+		}
+	}
+	while (left + it1 <= mid) {
+		res[it1 + it2] = a[left + it1];
+		it1 += 1;
+	}
+	while (mid + it2 < right) {
+		res[it1 + it2] = a[mid + it2 + 1];
+		it2 += 1;
+	}
+	for (int i = 0; i < right - left + 1; i++)
+		a[left + i] = res[i];
+}
+
+//Рекурсивная сортировка слиянием
+template<typename T>
+void merge_sort_recursive(T* a, int left, int right) {
+
+	if (left < right) {
+		int mid = (left + right) / 2;
+
+		merge_sort_recursive(a, left, mid);
+		merge_sort_recursive(a, mid + 1, right);
+		merge(a, left, mid, right);
+	}
+}
 
 int main()
 {
 	int arr_i[9] = { 1, 7, 34, 1, 56, -5, 341, 57, 31 };
 	char arr_c[9] = { 'b', 'a', 't', 'w','b' ,'z' ,'c' , 'v', '!' };
 
-	heap_sort(arr_i, 9);
-	heap_sort(arr_c, 9);
+	merge_sort_recursive(arr_i, 0, 8);
+	merge_sort_recursive(arr_c, 0, 8);
 
 	for (int i = 0; i < 9; i++)
 		cout << arr_i[i] << " ";
