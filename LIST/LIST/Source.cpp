@@ -15,13 +15,7 @@ int main()
 
 	fstream in("input.txt");
 
-	int N;
-	in >> N;
-
-	for (int i = 0; i < N; i++)
-	{
-		in >> A;
-	}
+	in >> A;
 	
 	cout << "File Reading..." << endl << A;
 
@@ -46,7 +40,6 @@ int main()
 	cout << "Sort by insertion" << endl << A << endl;
 
 	A.del(h);
-	A.del(A[2]);
 
 	cout << "Delete 2 items" << endl << A << endl;
 	cout << "Item '" << g <<"' locate at " << A.search(g) + 1 << " position" << endl << A << endl;
@@ -58,33 +51,6 @@ int main()
 	A.dedup();
 
 	cout << "Duplicate removing" << endl << A << endl;
-
-	List<Price> B(A);
-
-	cout << "Copy of A" << endl << B;
-	cout << "Compare A and B: " << A.list_compare(B) << endl << endl;
-
-	B.del(j);
-	B.push_back(j);
-
-	cout << "Push item to end of list" << endl << B;
-	cout << "Compare A and B: " << A.list_compare(B) << endl << endl;
-
-	for (int i = 6; i < B.get_Size();)
-		B.delete_node(i);
-
-	cout << "List B" << endl << B;
-	cout << "List B is Subset of A: " << B.isSubset(A) << endl << endl;
-
-	B.pop_front();
-
-	cout << "Delete first item of List B" << endl << B;
-	cout << "List B is Subset of A: " << B.isSubset(A) << endl << endl;
-
-	B.push_back(g);
-
-	cout << "Add new item to List B" << endl << B;
-	cout << "List B is Subset of A: " << B.isSubset(A) << endl;
 
 }	
 

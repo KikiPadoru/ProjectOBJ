@@ -18,31 +18,16 @@ private:
 			this->next = next;
 		}
 	};
-
 	//Init
 	int Size;
 	Node<T>* head;
 
-	//Miscellaneous
-	int get_pos(T value);
-	Node<T>* get_node(const int index)
-	{
-		int counter = 0;
-		Node<T>* cur = this->head;
-		while (cur)
-		{
-			if (counter == index)
-			{
-				return cur;
-			}
-			cur = cur->next;
-			counter++;
-		}
-	}
 public:
 
 	//Default Constructor
 	List<T>();
+	List(T* a, int n);
+
 	//Copy Constructor
 	List<T>(const List<T>& a);
 	//Destructor
@@ -60,7 +45,6 @@ public:
 
 	//Deletion
 	void del(T del, Node<T>* pos = nullptr);
-	void delete_node(const int index);
 	void pop_front();
 	void clear();
 
@@ -70,12 +54,7 @@ public:
 	//Miscellaneous
 	bool isEmpty();
 	int get_Size();
-	T& operator[](const int index);
 
-	//var_1
-	bool list_compare(const List<T> a);
-	//var_2
-	bool isSubset(const List<T> a);
 	//var_8
 	void dedup();
 
@@ -94,26 +73,22 @@ public:
 	//Input
 	friend istream& operator>>(istream& is, List<T>& a)
 	{
-		T in;	
-		is >> in;
-		a.push_back(in);
+		if (a.head) a.clear();
+		a.head = nullptr;
+		Node<T>* temp = nullptr;
+		Node<T>* ptr = nullptr;
+		T k;
+		while (is >> k) {
+			temp = new Node<T>(k, nullptr);
+			if (!a.head) a.head = ptr = temp;
+			else ptr->next = temp;
+			ptr = temp;
+		}
+		if (is.bad()) cout << "bad";
+
 		return is;
 	}
 };
-
-template<class T>
-inline int List<T>::get_pos(T value)
-{
-	Node<T>* cur = this->head;
-	int pos = 0;
-	while (cur)
-	{
-		if (value > cur->info)
-			pos++;
-		cur = cur->next;
-	}
-	return pos;
-}
 
 template<class T>
 inline void List<T>::push_back(T info)
@@ -208,19 +183,6 @@ inline void List<T>::del(T del, Node<T>* pos)
 }
 
 template<class T>
-inline void List<T>::delete_node(const int index)
-{
-	if (index > 0) {
-		Node<T>* to_del = get_node(index - 1);
-		to_del->next = to_del->next->next;
-	}
-	else
-		this->head = this->head->next;
-	Size--;
-
-}
-
-template<class T>
 inline void List<T>::pop_front()
 {
 	Node<T>* tmp = this->head;
@@ -267,86 +229,82 @@ inline void List<T>::insert_at_sort(T value)
 		}
 		cur = cur->next;
 	}
-	insert(get_pos(value), value);
+	Node<T>* nd = new Node<T>(value, nullptr);
+	cur = this->head;
+	while (cur->next->info < nd->info)
+	{
+		cur = cur->next;
+	}
+	nd->next = cur->next->next;
+	cur->next = nd;
 }
 
 template<class T>
 inline void List<T>::insert_node(int pos, Node<T>* node)
 {
+	Node<T>* cur = this->head;
 	if (pos == 0) {
 		node->next = this->head;
 		this->head = node;
 	}
 	else if (pos > this->Size)
-		get_node(Size - 1)->next = node;
+	{
+		while (cur->next)
+			cur = cur->next;
+		cur->next = node;
+	}
 	else
 	{
-		node->next = get_node(pos);
-		get_node(pos - 1)->next = node;
+		int counter = 0;
+		while (counter < pos - 1)
+			cur = cur->next;
+		node->next = cur->next->next;
+		cur->next = node;
 	}
 	Size++;
 }
 
 template<class T>
-inline T& List<T>::operator[](const int index)
-{
-	return get_node(index)->info;
-}
-
-template<class T>
 inline void List<T>::insertion_sort()
 {
-	for (int i = 1; i < Size; i++) {
-		Node<T>* key = get_node(i);
-		delete_node(i);
-		int j = i - 1;
-		while (j >= 0 && (*this)[j] > key->info)
-		{
-			j = j - 1;
-		}
-		insert_node(j + 1, key);
-	}
-}
-template<class T>
-inline bool List<T>::list_compare(const List<T> a)
-{
-	if (this->Size == a.Size)
+	Node<T>* prev1 = this->head;
+	Node<T>* prev2 = nullptr;
+	Node<T>* cur1 = prev1->next;
+	Node<T>* cur2 = nullptr;
+
+	while (cur1)
 	{
-		Node<T>* cur_A = this->head;
-		Node<T>* cur_B = a.head;
-		while (cur_A)
+		cur2 = this->head;
+		prev2 = nullptr;
+		while (cur2 != cur1 && cur2->info < cur1->info)
 		{
-			if (cur_A->info != cur_B->info)
-				return 0;
-			cur_A = cur_A->next;
-			cur_B = cur_B->next;
+			prev2 = cur2;
+			cur2 = cur2->next;
+		}
+		if (cur1 == cur2)
+		{
+			prev1 = cur1;
+			cur1 = cur1->next;
+		}
+		else
+		{
+			prev1->next = cur1->next;
+			if (prev2)
+				prev2->next = cur1;
+			else
+				head = cur1;
+			cur1->next = cur2;
+			cur1 = prev1->next;
 		}
 	}
-	else
-		return 0;
-	return 1;
 }
+
 template<class T>
 inline int List<T>::get_Size()
 {
 	return this->Size;
 }
-template<class T>
-inline bool List<T>::isSubset(const List<T> a)
-{
-	Node<T>* cur_A = this->head;
-	Node<T>* cur_B = a.head;
-	while (cur_A->info != cur_B->info)
-		cur_B = cur_B->next;
-	while (cur_A)
-	{
-		if (cur_A->info != cur_B->info)
-			return 0;
-		cur_A = cur_A->next;
-		cur_B = cur_B->next;
-	}
-	return 1;
-}
+
 template<class T>
 inline List<T>::List()
 {
@@ -363,5 +321,22 @@ inline List<T>::List(const List<T>& a)
 	while (cur) {
 		push_back(cur->info);
 		cur = cur->next;
+	}
+}
+
+template<class T>
+inline List<T>::List(T* a, int n)
+{
+	head = nullptr;
+
+	Node<T>* ptr;
+	for (int i = 0; i < n; i++)
+	{
+		Node<T>* temp = new Node<T>(a[i], nullptr);
+		if (!head)
+			head = ptr = temp;
+		else
+			ptr->next = temp;
+		ptr = temp;
 	}
 }

@@ -10,7 +10,7 @@ int len(char* a)
 
 int main()
 {
-	char a[128] = "SSEQUENCE";
+	char a[128] = "SUBSEQUENCE";
 	char b[128] = "SUBSEQUENCE";
 
 	int** table = new int* [len(a) + 1];
