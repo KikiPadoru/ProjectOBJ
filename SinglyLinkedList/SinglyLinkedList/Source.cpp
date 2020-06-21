@@ -15,37 +15,26 @@ struct List
 
 	//Напечатать список
 	void PrintList();
-
 	//Добавить элемент в конец списка
 	void InsertAtEnd(T x);
-
 	//Добавить элемент в начало списка
 	void InsertAtForward(T x);
-
 	//Удалить первое вхождение элемента
 	void DeleteFirst(T x);
-
 	//Отсортировать список
 	void SortList();
-
 	//Удалить первый элемент списка
 	void DeleteHead();
-
 	//Очистить список
 	void DeleteAll();
-
 	//Создать список на основе массива
 	void ArrToList(T* arr, int n);
-
 	//Длина списка
 	int LenghtList();
-
 	//Найти i-й по счёту элемент списка
 	void FindIndexList(const int index);
-	
 	//Удалить i-й по счёту элемент списка
 	void DeleteIndexList(const int index);
-
 	//Переставить последний элемент списка в начало
 	void ReplaceLastToForward();
 		
@@ -57,14 +46,9 @@ int main()
 	A.InsertAtEnd(6);
 	A.InsertAtEnd(1);
 	A.InsertAtEnd(4);
-
 	A.PrintList();
-
-
 	A.SortList();
 	A.PrintList();
-
-
 	int arr[5] = { 1, 6, 3, 12, 1 };
 	List<int> B;
 	B.ArrToList(arr, 5);
@@ -73,9 +57,6 @@ int main()
 	B.PrintList();
 	B.FindIndexList(4);
 	B.DeleteIndexList(4);
-	B.DeleteHead();
-	B.DeleteHead();
-	B.DeleteHead();
 	B.DeleteHead();
 	B.PrintList();
 	B.ReplaceLastToForward();
