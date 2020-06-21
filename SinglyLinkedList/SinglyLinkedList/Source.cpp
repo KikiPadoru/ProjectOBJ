@@ -19,6 +19,9 @@ struct List
 	//Добавить элемент в конец списка
 	void InsertAtEnd(T x);
 
+	//Добавить элемент в начало списка
+	void InsertAtForward(T x);
+
 	//Удалить первое вхождение элемента
 	void DeleteFirst(T x);
 
@@ -44,22 +47,8 @@ struct List
 	void DeleteIndexList(const int index);
 
 	//Переставить последний элемент списка в начало
-	void ReplaceLastToForward()
-	{
-		Node<T>* cur = head;
-		Node<T>* prev = NULL;
-		while (cur->next)
-		{
-			prev = cur;
-			cur = cur->next;
-		}
-		if (cur != head) {
-			prev->next = NULL;
-			cur->next = head;
-			head = cur;
-		}
-	}
-	
+	void ReplaceLastToForward();
+		
 };
 
 int main()
@@ -71,26 +60,27 @@ int main()
 
 	A.PrintList();
 
-	cout << endl;
 
 	A.SortList();
 	A.PrintList();
 
-	cout << endl;
 
 	int arr[5] = { 1, 6, 3, 12, 1 };
 	List<int> B;
 	B.ArrToList(arr, 5);
 	B.PrintList();
-	cout << endl;
 	B.SortList();
 	B.PrintList();
-	cout << endl;
 	B.FindIndexList(4);
 	B.DeleteIndexList(4);
+	B.DeleteHead();
+	B.DeleteHead();
+	B.DeleteHead();
+	B.DeleteHead();
 	B.PrintList();
-	cout << endl;
 	B.ReplaceLastToForward();
+	B.PrintList();
+	B.InsertAtForward(5);
 	B.PrintList();
 }
 
@@ -99,7 +89,7 @@ void List<T>::PrintList()
 {
 	if (!head)
 	{
-		cout << "List is Empty";
+		cout << "List is Empty" << endl;
 		return;
 	}
 	Node<T>* cur = head;
@@ -108,6 +98,7 @@ void List<T>::PrintList()
 		cout << cur->info << " ";
 		cur = cur->next;
 	}
+	cout << endl;
 }
 
 template<class T>
@@ -127,6 +118,15 @@ void List<T>::InsertAtEnd(T x)
 		prev->next = nd;
 	else
 		head = nd;
+}
+
+template<class T>
+void List<T>::InsertAtForward(T x)
+{
+	Node<T>* tmp = new Node<T>;
+	tmp->info = x;
+	tmp->next = head;
+	head = tmp;
 }
 
 template<class T>
@@ -267,4 +267,21 @@ void List<T>::DeleteIndexList(const int index)
 	}
 	else
 		cout << "Item not found" << endl;
+}
+
+template<class T>
+void List<T>::ReplaceLastToForward()
+{
+	Node<T>* cur = head;
+	Node<T>* prev = NULL;
+	while (cur)
+	{
+		prev = cur;
+		cur = cur->next;
+	}
+	if (cur != head && cur) {
+		prev->next = NULL;
+		cur->next = head;
+		head = cur;
+	}
 }
