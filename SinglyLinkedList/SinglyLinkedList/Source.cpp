@@ -17,8 +17,6 @@ struct List
 	void PrintList();
 	//Добавить элемент в конец списка
 	void InsertAtEnd(T x);
-	//Добавить элемент в начало списка
-	void InsertAtForward(T x);
 	//Удалить первое вхождение элемента
 	void DeleteFirst(T x);
 	//Отсортировать список
@@ -27,6 +25,8 @@ struct List
 	void DeleteHead();
 	//Очистить список
 	void DeleteAll();
+	//Добавить элемент в начало списка
+	void InsertAtForward(T x);
 	//Создать список на основе массива
 	void ArrToList(T* arr, int n);
 	//Длина списка
@@ -41,6 +41,8 @@ struct List
 	void ReplaceLastToForward();
 	//Перевернуть список
 	void ReverseList();
+	//Вставить элемент x в упорядоченный список
+	void InsertAtSort(T x);
 };
 
 int main()
@@ -69,6 +71,10 @@ int main()
 	B.ReverseList();
 	B.PrintList();
 	B.InsertAtPos(7, 7);
+	B.PrintList();
+	B.SortList();
+	B.PrintList();
+	B.InsertAtSort(19);
 	B.PrintList();
 }
 
@@ -277,7 +283,6 @@ void List<T>::InsertAtPos(T x, const int pos)
 			h->next = NULL;
 			cur = h;
 			prev->next = cur;
-
 		}
 	}
 	Node<T>* nd = new Node<T>;
@@ -324,4 +329,39 @@ void List<T>::ReverseList()
 	}
 	cur->next = tmp;
 	head = cur;
+}
+
+template<class T>
+void List<T>::InsertAtSort(T x)
+{
+	Node<T>* cur = head;
+	while (cur->next)
+	{
+		if (cur->info > cur->next->info)
+		{
+			cout << "It does not sorted!" << endl;
+			return;
+		}
+		cur = cur->next;
+	}
+	Node<T>* nd = new Node<T>;
+	nd->info = x;
+	nd->next = NULL;
+	cur = head;
+	Node<T>* prev = NULL;
+	while (cur && cur->info < nd->info)
+	{
+		prev = cur;
+		cur = cur->next;
+	}
+	if (cur == head)
+	{
+		nd->next = cur;
+		head = nd;
+	}
+	else
+	{
+		prev->next = nd;
+		nd->next = cur;
+	}
 }
