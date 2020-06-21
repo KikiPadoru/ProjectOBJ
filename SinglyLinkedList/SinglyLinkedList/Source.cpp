@@ -2,39 +2,40 @@
 using namespace std;
 
 template <class T>
-struct L_Node
+struct Node
 {
 	T info;
-	L_Node<T>* next;
+	Node<T>* next;
 };
 
 template <class T>
 struct List
 {
-	L_Node<T>* head = NULL;
+	Node<T>* head = NULL;
 
 	//Напечатать список
 	void PrintList();
 
 	//Добавить элемент в конец списка
 	void InsertAtEnd(T x);
-	
+
 	//Удалить первое вхождение элемента
 	void DeleteFirst(T x);
-	
+
 	//Отсортировать список
 	void SortList();
-	
+
 	//Удалить первый элемент списка
 	void DeleteHead();
-	
+
 	//Очистить список
 	void DeleteAll();
-	
+
 	//Создать список на основе массива
 	void ArrToList(T* arr, int n);
-	
 
+	//Длина списка
+	int LenghtList();
 };
 
 int main()
@@ -62,6 +63,8 @@ int main()
 	B.PrintList();
 	cout << endl;
 
+	cout << B.LenghtList() << endl;
+
 
 }
 
@@ -73,7 +76,7 @@ void List<T>::PrintList()
 		cout << "List is Empty";
 		return;
 	}
-	L_Node<T>* cur = head;
+	Node<T>* cur = head;
 	while (cur)
 	{
 		cout << cur->info << " ";
@@ -84,14 +87,14 @@ void List<T>::PrintList()
 template<class T>
 void List<T>::InsertAtEnd(T x)
 {
-	L_Node<T>* cur = head;
-	L_Node<T>* prev = NULL;
+	Node<T>* cur = head;
+	Node<T>* prev = NULL;
 	while (cur)
 	{
 		prev = cur;
 		cur = cur->next;
 	}
-	L_Node<T>* nd = new L_Node<T>;
+	Node<T>* nd = new Node<T>;
 	nd->info = x;
 	nd->next = NULL;
 	if (head)
@@ -103,8 +106,8 @@ void List<T>::InsertAtEnd(T x)
 template<class T>
 void List<T>::DeleteFirst(T x)
 {
-	L_Node<T>* cur = head;
-	L_Node<T>* prev = NULL;
+	Node<T>* cur = head;
+	Node<T>* prev = NULL;
 	while (cur && cur->info != x)
 	{
 		prev = cur;
@@ -122,10 +125,10 @@ void List<T>::DeleteFirst(T x)
 template<class T>
 void List<T>::SortList()
 {
-	L_Node<T>* prev1 = head;
-	L_Node<T>* prev2;
-	L_Node<T>* cur1 = prev1->next;
-	L_Node<T>* cur2;
+	Node<T>* prev1 = head;
+	Node<T>* prev2;
+	Node<T>* cur1 = prev1->next;
+	Node<T>* cur2;
 	while (cur1)
 	{
 		cur2 = head;
@@ -156,7 +159,7 @@ void List<T>::SortList()
 template<class T>
 void List<T>::DeleteHead()
 {
-	L_Node<T>* tmp = head;
+	Node<T>* tmp = head;
 	head = head->next;
 	delete tmp;
 }
@@ -172,10 +175,10 @@ void List<T>::ArrToList(T* arr, int n)
 {
 	if (head) DeleteAll();
 
-	L_Node<T>* cur = head;
+	Node<T>* cur = head;
 	for (int i = 0; i < n; i++)
 	{
-		L_Node<T>* tmp = new L_Node<T>;
+		Node<T>* tmp = new Node<T>;
 		tmp->info = arr[i];
 		tmp->next = NULL;
 		if (!head)
@@ -184,4 +187,17 @@ void List<T>::ArrToList(T* arr, int n)
 			cur->next = tmp;
 		cur = tmp;
 	}
+}
+
+template<class T>
+int List<T>::LenghtList()
+{
+	Node<T>* cur = head;
+	int counter = 0;
+	while (cur)
+	{
+		counter++;
+		cur = cur->next;
+	}
+	return counter;
 }
