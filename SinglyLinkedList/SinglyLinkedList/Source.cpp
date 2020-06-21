@@ -35,6 +35,8 @@ struct List
 	void FindIndexList(const int index);
 	//Удалить i-й по счёту элемент списка
 	void DeleteIndexList(const int index);
+	//Вставить элемент x на i-ю позицию
+	void InsertAtPos(T x, const int pos);
 	//Переставить последний элемент списка в начало
 	void ReplaceLastToForward();
 	//Перевернуть список
@@ -65,6 +67,8 @@ int main()
 	B.InsertAtForward(5);
 	B.PrintList();
 	B.ReverseList();
+	B.PrintList();
+	B.InsertAtPos(7, 7);
 	B.PrintList();
 }
 
@@ -251,6 +255,41 @@ void List<T>::DeleteIndexList(const int index)
 	}
 	else
 		cout << "Item not found" << endl;
+}
+
+template<class T>
+void List<T>::InsertAtPos(T x, const int pos)
+{
+	Node<T>* cur = head;
+	Node<T>* prev = NULL;
+	int counter = 0;
+	while (counter < pos)
+	{
+		if (cur)
+		{
+			prev = cur;
+			cur = cur->next;
+			counter++;
+		}
+		else {
+			Node<T>* h = new Node<T>;
+			h->info = T();
+			h->next = NULL;
+			cur = h;
+			prev->next = cur;
+
+		}
+	}
+	Node<T>* nd = new Node<T>;
+	nd->info = x;
+	nd->next = cur;
+	if (!prev)
+	{
+		nd->next = cur;
+		head = nd;
+	}
+	else
+		prev->next = nd;
 }
 
 template<class T>
