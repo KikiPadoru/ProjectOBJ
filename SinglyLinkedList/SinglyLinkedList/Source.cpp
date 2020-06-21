@@ -37,7 +37,8 @@ struct List
 	void DeleteIndexList(const int index);
 	//Переставить последний элемент списка в начало
 	void ReplaceLastToForward();
-		
+	//Перевернуть список
+	void ReverseList();
 };
 
 int main()
@@ -62,6 +63,8 @@ int main()
 	B.ReplaceLastToForward();
 	B.PrintList();
 	B.InsertAtForward(5);
+	B.PrintList();
+	B.ReverseList();
 	B.PrintList();
 }
 
@@ -265,4 +268,21 @@ void List<T>::ReplaceLastToForward()
 		cur->next = head;
 		head = cur;
 	}
+}
+
+template<class T>
+void List<T>::ReverseList()
+{
+	Node<T>* cur = head->next;
+	Node<T>* cur2 = head->next->next;
+	Node<T>* tmp = head; tmp->next = NULL;
+	while (cur2)
+	{
+		cur->next = tmp;
+		tmp = cur;
+		cur = cur2;
+		cur2 = cur2->next;
+	}
+	cur->next = tmp;
+	head = cur;
 }
