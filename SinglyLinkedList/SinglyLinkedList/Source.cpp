@@ -36,6 +36,30 @@ struct List
 
 	//Длина списка
 	int LenghtList();
+
+	//Найти i-й по счёту элемент списка
+	void FindIndexList(const int index);
+	
+	//Удалить i-й по счёту элемент списка
+	void DeleteIndexList(const int index);
+
+	//Переставить последний элемент списка в начало
+	void ReplaceLastToForward()
+	{
+		Node<T>* cur = head;
+		Node<T>* prev = NULL;
+		while (cur->next)
+		{
+			prev = cur;
+			cur = cur->next;
+		}
+		if (cur != head) {
+			prev->next = NULL;
+			cur->next = head;
+			head = cur;
+		}
+	}
+	
 };
 
 int main()
@@ -62,10 +86,12 @@ int main()
 	B.SortList();
 	B.PrintList();
 	cout << endl;
-
-	cout << B.LenghtList() << endl;
-
-
+	B.FindIndexList(4);
+	B.DeleteIndexList(4);
+	B.PrintList();
+	cout << endl;
+	B.ReplaceLastToForward();
+	B.PrintList();
 }
 
 template<class T>
@@ -200,4 +226,45 @@ int List<T>::LenghtList()
 		cur = cur->next;
 	}
 	return counter;
+}
+
+template<class T>
+void List<T>::FindIndexList(const int index)
+{
+	Node<T>* cur = head;
+	int counter = 0;
+	while (counter != index && cur)
+	{
+		counter++;
+		cur = cur->next;
+	}
+	if (cur)
+		cout << cur->info << endl;
+	else
+		cout << "Item not found" << endl;
+}
+template<class T>
+void List<T>::DeleteIndexList(const int index)
+{
+	Node<T>* cur = head;
+	Node<T>* prev = NULL;
+	int counter = 0;
+	while (counter < index && cur)
+	{
+		counter++;
+		prev = cur;
+		cur = cur->next;
+	}
+	if (counter == index)
+	{
+		Node<T>* tmp = cur;
+		cout << "Item " << tmp->info << " has been deleted" << endl;
+		if (cur != head)
+			prev->next = cur->next;
+		else
+			head = cur->next;
+		delete tmp;
+	}
+	else
+		cout << "Item not found" << endl;
 }
