@@ -12,7 +12,6 @@ template <class T>
 struct List
 {
 	Node<T>* head = NULL;
-	int Size = 0;
 
 	//Напечатать список
 	void PrintList();
@@ -77,9 +76,7 @@ int main()
 	B.PrintList();
 	B.InsertAtSort(19);
 	B.PrintList();
-	B.DeleteFirst(20);
-	B.PrintList();
-	cout << B.LenghtList();
+	B.LenghtList();
 }
 
 template<class T>
@@ -112,7 +109,6 @@ void List<T>::InsertAtEnd(T x)
 	Node<T>* nd = new Node<T>;
 	nd->info = x;
 	nd->next = NULL;
-	Size++;
 	if (head)
 		prev->next = nd;
 	else
@@ -125,7 +121,6 @@ void List<T>::InsertAtForward(T x)
 	Node<T>* tmp = new Node<T>;
 	tmp->info = x;
 	tmp->next = head;
-	Size++;
 	head = tmp;
 }
 
@@ -145,7 +140,6 @@ void List<T>::DeleteFirst(T x)
 		prev->next = cur->next;
 	else
 		head = head->next;
-	Size--;
 	delete cur;
 }
 
@@ -188,7 +182,6 @@ void List<T>::DeleteHead()
 {
 	Node<T>* tmp = head;
 	head = head->next;
-	Size--;
 	delete tmp;
 }
 
@@ -214,7 +207,6 @@ void List<T>::ArrToList(T* arr, int n)
 		else
 			cur->next = tmp;
 		cur = tmp;
-		Size++;
 	}
 }
 
@@ -266,7 +258,6 @@ void List<T>::DeleteIndexList(const int index)
 			prev->next = cur->next;
 		else
 			head = cur->next;
-		Size--;
 		delete tmp;
 	}
 	else
@@ -293,7 +284,6 @@ void List<T>::InsertAtPos(T x, const int pos)
 			h->next = NULL;
 			cur = h;
 			prev->next = cur;
-			Size++;
 		}
 	}
 	Node<T>* nd = new Node<T>;
@@ -306,7 +296,6 @@ void List<T>::InsertAtPos(T x, const int pos)
 	}
 	else
 		prev->next = nd;
-	Size++;
 }
 
 template<class T>
@@ -376,5 +365,4 @@ void List<T>::InsertAtSort(T x)
 		prev->next = nd;
 		nd->next = cur;
 	}
-	Size++;
 }
