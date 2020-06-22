@@ -9,9 +9,6 @@ int main()
 	A.build_max_heap();
 	cout << endl;
 	A.print_heap();
-	A.heap_sort();
 	cout << endl;
-	A.print_heap();
-	cout << endl;
-	A.get_arr();
+	cout << A.heap_extract_max();
 }

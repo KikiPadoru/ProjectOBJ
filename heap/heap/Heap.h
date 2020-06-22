@@ -49,7 +49,6 @@ public:
 			max_heapify(i);
 		}
 	}
-
 	void add(int x)
 	{
 		int i = heap_size;
@@ -91,6 +90,18 @@ public:
 			cout << endl;
 			k = k * 2 + 1;
 		}
+	}
+	int heap_extract_max()
+	{
+		if (heap_size < 1)
+		{
+			cout << "ERORO";
+			return 0;
+		}
+		int max = h[0];
+		heap_size = heap_size - 1;
+		max_heapify(0);
+		return max;
 	}
 	void heap_sort()
 	{
