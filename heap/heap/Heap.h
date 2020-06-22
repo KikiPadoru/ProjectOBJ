@@ -2,13 +2,12 @@
 #include <iostream>
 using namespace std;
 
-template <class T>
 class Heap
 {
 private:
 	int lenght;
 	int heap_size;
-	T* h;
+	int* h;
 	int parent(int i) 
 	{
 		return i >> 1;
@@ -22,33 +21,36 @@ private:
 		return 2 * i + 2;
 	}
 public:
-	template <class T>
 	Heap()
 	{
 		lenght = 0;
 		heap_size = 0;
-		h = new T[100];
+		h = new int[100];
 	}
-	//aka Build-Max-Heapify
-	template <class T>
-	Heap(T* arr, int n)
+
+	Heap(int* arr, int n)
 	{
 		lenght = n;
 		heap_size = lenght;
-		h = new T[lenght];
+		h = new int[lenght];
 		for (int i = 0; i < n; i++) {
 			h[i] = arr[i];
 		}
+	}
+
+	void build_max_heap()
+	{
+		heap_size = lenght;
 		for (int i = lenght / 2, j = 1; i >= 0; i--, j++)
 		{
-			cout << "Iter " << j << "\ti = " << i << endl;
+			/*cout << "Iter " << j << "\ti = " << i << endl;
 			print_heap();
-			cout << endl;
+			cout << endl;*/
 			max_heapify(i);
 		}
 	}
-	template <class T>
-	void add(T x)
+
+	void add(int x)
 	{
 		int i = heap_size;
 		h[i] = x;
@@ -90,6 +92,20 @@ public:
 			k = k * 2 + 1;
 		}
 	}
-
+	void heap_sort()
+	{
+		build_max_heap();
+		for (int i = lenght - 1; i > 1; i--)
+		{
+			swap(h[0], h[i]);
+			heap_size = heap_size - 1;
+			max_heapify(0);
+		}
+	}
+	void get_arr()
+	{
+		for (int i = 0; i < lenght; i++)
+			cout << h[i] << " ";
+	}
 };
 
